@@ -4,6 +4,8 @@ Public, signed plugin catalog for [Penglai](https://github.com/kevinchennewbee/P
 
 Penglai clients discover plugins only from **immutable GitHub Releases** of this repository. A mutable branch, a `latest` asset, or an unsigned JSON file is not a trust source.
 
+The first live catalog is [plugin-catalog-v1.000001](https://github.com/kevinchennewbee/PenglaiPluginRegistry/releases/tag/plugin-catalog-v1.000001). GitHub reports that Release as immutable. It contains the signed catalog, detached signatures, exact plugin archive, and `SHA256SUMS` as separate assets.
+
 ## Trust rules
 
 - Catalog schema: `penglai.plugin-catalog.v1`
@@ -19,3 +21,5 @@ Signing keys stay **outside** this repository. Never commit PEM files, API token
 ## Pilot plugin
 
 `@penglai/plugin-pilot` is a reviewed, unprivileged echo tool used to prove refresh, download, verify, disabled-by-default install, owner confirmation, enable, restart restore, update, rollback, revoke, and offline last-good cache.
+
+The pilot is deliberately small. Its job is to prove the distribution and lifecycle contract before the catalog carries more useful community plugins; it is not presented as an office suite or a showcase feature.

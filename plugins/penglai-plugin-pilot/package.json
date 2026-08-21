@@ -1,0 +1,23 @@
+{
+  "name": "@penglai/plugin-pilot",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "penglaiPlugin": {
+    "schema": 2,
+    "id": "@penglai/plugin-pilot",
+    "version": "1.0.0",
+    "dshExact": "0.1.1-rc.1",
+    "centerProtocol": 1,
+    "entry": "index.js",
+    "targets": ["any"],
+    "capabilities": ["pilot-echo"],
+    "permissions": [],
+    "nativeCode": false,
+    "installScripts": false,
+    "networkOrigins": [],
+    "dataPaths": [],
+    "license": "MIT"
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "name": "@penglai/office-reader",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Read-only DOCX, XLSX, and PPTX text extraction for Penglai and DSH.",
+  "license": "MIT",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "esbuild src/index.js --bundle --platform=node --format=esm --target=node22 --outfile=index.js --legal-comments=inline",
+    "test": "npm run build && node --test test/*.test.js"
+  },
+  "dependencies": {
+    "fflate": "0.8.2"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.9"
+  },
+  "penglaiPlugin": {
+    "schema": 2,
+    "id": "@penglai/office-reader",
+    "version": "0.1.0",
+    "dshExact": "0.1.1-rc.1",
+    "centerProtocol": 1,
+    "entry": "index.js",
+    "targets": [
+      "any"
+    ],
+    "capabilities": [
+      "office-read"
+    ],
+    "permissions": [
+      "workspace.read"
+    ],
+    "nativeCode": false,
+    "installScripts": false,
+    "networkOrigins": [],
+    "dataPaths": [
+      "workspace-selected-file"
+    ],
+    "license": "MIT"
+  }
+}

@@ -466,7 +466,7 @@ function unzipSync(data, opts) {
 
 // src/index.js
 var name = "@penglai/office-reader";
-var version = "0.1.1";
+var version = "0.1.2";
 var inject = ["tools", "fs"];
 var MAX_ARCHIVE_BYTES = 32 * 1024 * 1024;
 var MAX_EXPANDED_BYTES = 64 * 1024 * 1024;
@@ -613,10 +613,10 @@ function apply(ctx) {
     parameters: {
       type: "object",
       additionalProperties: false,
+      required: ["file_path"],
       properties: {
         file_path: {
           type: "string",
-          required: true,
           description: "Path to a .docx, .xlsx, or .pptx file in the active workspace."
         }
       }

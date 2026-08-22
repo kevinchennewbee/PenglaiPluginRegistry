@@ -1,7 +1,7 @@
 import { unzipSync } from "fflate";
 
 export const name = "@penglai/office-reader";
-export const version = "0.1.1";
+export const version = "0.1.2";
 export const inject = ["tools", "fs"];
 
 const MAX_ARCHIVE_BYTES = 32 * 1024 * 1024;
@@ -189,10 +189,10 @@ export function apply(ctx) {
     parameters: {
       type: "object",
       additionalProperties: false,
+      required: ["file_path"],
       properties: {
         file_path: {
           type: "string",
-          required: true,
           description: "Path to a .docx, .xlsx, or .pptx file in the active workspace.",
         },
       },

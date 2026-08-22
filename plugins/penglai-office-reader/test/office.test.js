@@ -85,6 +85,10 @@ test("registers and executes through the exact DSH rc.1 ToolRuntime output contr
       async readBytes() { return bytes; },
     },
   });
+  const wireSchema = tools.schemas().find((schema) => schema.name === "penglai_office_extract");
+  assert.ok(wireSchema);
+  assert.deepEqual(wireSchema.parameters.required, ["file_path"]);
+  assert.equal(wireSchema.parameters.properties.file_path.required, undefined);
   const result = await tools.execute({
     callId: "office-rc1",
     name: "penglai_office_extract",

@@ -466,7 +466,7 @@ function unzipSync(data, opts) {
 
 // src/index.js
 var name = "@penglai/office-reader";
-var version = "0.1.0";
+var version = "0.1.1";
 var inject = ["tools", "fs"];
 var MAX_ARCHIVE_BYTES = 32 * 1024 * 1024;
 var MAX_EXPANDED_BYTES = 64 * 1024 * 1024;
@@ -620,6 +620,35 @@ function apply(ctx) {
           description: "Path to a .docx, .xlsx, or .pptx file in the active workspace."
         }
       }
+    },
+    output: {
+      schema: {
+        type: "object",
+        additionalProperties: false,
+        required: ["path", "bytes", "format", "sections", "text", "truncated"],
+        properties: {
+          path: { type: "string" },
+          bytes: { type: "integer" },
+          format: { type: "string" },
+          sections: { type: "integer" },
+          text: { type: "string" },
+          truncated: { type: "boolean" }
+        }
+      },
+      render: (_args, value) => [
+        {
+          type: "text",
+          text: `[UNTRUSTED OFFICE FILE CONTENT]
+${value.text}`
+        }
+      ],
+      presentationMeta: (_args, value) => ({
+        path: value.path,
+        bytes: value.bytes,
+        format: value.format,
+        sections: value.sections,
+        truncated: value.truncated
+      })
     },
     async execute(args, exec) {
       if (!args || typeof args.file_path !== "string" || !args.file_path.trim()) {

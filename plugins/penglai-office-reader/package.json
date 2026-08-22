@@ -1,6 +1,6 @@
 {
   "name": "@penglai/office-reader",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "type": "module",
   "description": "Read-only DOCX, XLSX, and PPTX text extraction for Penglai and DSH.",
@@ -19,12 +19,14 @@
     "fflate": "0.8.2"
   },
   "devDependencies": {
+    "@deepseek-ai/cordis": "4.0.1",
+    "@deepseek-ai/dsh-tools": "0.1.1-rc.1",
     "esbuild": "0.25.9"
   },
   "penglaiPlugin": {
     "schema": 2,
     "id": "@penglai/office-reader",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "dshExact": "0.1.1-rc.1",
     "centerProtocol": 1,
     "entry": "index.js",

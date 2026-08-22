@@ -1,5 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { Context } from "@deepseek-ai/cordis";
+import { ToolRuntime } from "@deepseek-ai/dsh-tools";
 import { zipSync, strToU8 } from "fflate";
 import { apply, extractOfficeBytes } from "../index.js";
 
@@ -62,6 +64,39 @@ test("tool reads through ctx.fs with a hard byte cap", async () => {
   assert.equal(state.readOnly, true);
   assert.equal(observedCap, 32 * 1024 * 1024);
   assert.match(out.text, /Office ready/);
+});
+
+test("registers and executes through the exact DSH rc.1 ToolRuntime output contract", async () => {
+  const bytes = officeZip({
+    "[Content_Types].xml": "<Types/>",
+    "word/document.xml": "<w:document><w:p><w:t>DSH rc.1 ready</w:t></w:p></w:document>",
+  });
+  class SystemPromptStub {
+    tools() { return []; }
+  }
+  const app = new Context();
+  app.provide("systemPrompt", new SystemPromptStub(), true);
+  const tools = new ToolRuntime(app);
+  apply({
+    tools,
+    fs: {
+      async resolve(path) { return { targetKey: path, displayPath: path }; },
+      async stat() { return { type: "file", size: bytes.byteLength }; },
+      async readBytes() { return bytes; },
+    },
+  });
+  const result = await tools.execute({
+    callId: "office-rc1",
+    name: "penglai_office_extract",
+    arguments: { file_path: "fixture.docx" },
+    agent: { id: "office-test-agent" },
+    signal: new AbortController().signal,
+  });
+  assert.equal(result.isError, false);
+  assert.equal(result.value.format, "docx");
+  assert.match(result.value.text, /DSH rc\.1 ready/);
+  assert.match(result.content[0].text, /^\[UNTRUSTED OFFICE FILE CONTENT\]/);
+  assert.equal(result.meta.format, "docx");
 });
 
 test("rejects unsafe ZIP paths and unsupported formats", () => {
